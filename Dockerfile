@@ -3,7 +3,7 @@ FROM golang:1.17
 WORKDIR /go/src/app
 COPY . .
 
-RUN go get -d -v ./...
-RUN go install -v ./...
+RUN mkdir /cmd
+RUN go build -o /cmd/app /go/src/app/main.go
 
-CMD ["app"]
+ENTRYPOINT ["/cmd/app"]
