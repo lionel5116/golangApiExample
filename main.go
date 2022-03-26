@@ -54,16 +54,21 @@ func getAlbums(c *gin.Context) {
 
 var arrProducts = []Product{}
 
+//https://www.youtube.com/watch?v=DWNozbk_fuk
+//good video above that explains how I got the code to first work
+//the notes below (comments are from that video above)
 func getProducts(c *gin.Context) {
 
-	//declare connection
+	//declare connection (it returns a tuple)
 	db, err := sql.Open("mysql", "root:Mag17615@@tcp(127.0.0.1:3306)/sql_store")
 	if err != nil {
 		panic(err.Error())
 	}
+
+	//defer means you want to keep the connection open until the function completes
 	defer db.Close()
 
-	//queyr the database
+	//query the database
 	results, err := db.Query("SELECT product_id,name,quantity_in_stock,unit_price FROM products")
 	if err != nil {
 		panic(err.Error())
